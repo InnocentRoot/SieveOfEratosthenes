@@ -10,8 +10,7 @@
     on:mouseover
     on:mouseenter
     on:mouseleave
-    class="btn {type}" 
-    id="run__btn"
+    class="btn {type}"
     {disabled}>
         <slot name="icon"></slot>
         <span>{name}</span>
