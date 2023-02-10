@@ -1,21 +1,23 @@
 <script>
-    import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-    import SpeedSlider from './Control/SpeedSlider.svelte';
-    import { currentRowSize, currentColSize } from '../stores/BoardSize'
-    import Control from './Control/Control.svelte';
-    import { formatTime } from '../helpers/utils';
-    import { isRunning } from '../stores/state';
-    import { currentOperation, currentOperationDescription } from '../stores/algorithm';
-    import { speed } from '../stores/algorithm';
-    import { time } from '../stores/timer';
-    import BoardCell from './BoardCell.svelte';
+    import { createEventDispatcher, onDestroy } from 'svelte'
+    import { currentOperation, currentOperationDescription } from '../stores/algorithm'
+    import SpeedSlider from './Control/SpeedSlider.svelte'
+    import Control from './Control/Control.svelte'
+    import { formatTime } from '../helpers/utils'
+    import { isRunning } from '../stores/state'
+    import BoardCell from './BoardCell.svelte'
+    import { speed } from '../stores/algorithm'
+    import { time } from '../stores/timer'
+    import { getRandomColor, getBrigthenColor, getTextColor } from '../helpers/colors'
+    
 
-
-    export let row;
-    export let col;
-    export let rows = [];
+    export let row
+    export let col
+    export let rows = []
     export let elapsed = 0
     export let alogSpeed = 0
+    let activeCellColor
+    let markedCellColor
 
     let algorithmIsRunning
     let timerSubscriber
@@ -112,6 +114,7 @@
                         if (rows[i].cells[j].to_be_crossed) {
                             rows[i].cells[j].to_be_crossed = false
                             rows[i].cells[j].crossed = true
+                            rows[i].cells[j].color = activeCellColor
                         }
                     }
                 }
@@ -132,6 +135,12 @@
                 break
             }
             currentOperation.set(`En train de tamiser les multiples de ${i}`)
+
+            activeCellColor = getRandomColor()
+            markedCellColor = getBrigthenColor(activeCellColor)
+
+            console.log(`%c accent color set to ${activeCellColor}`, `background: ${activeCellColor}; color: ${getTextColor(activeCellColor)}`)
+            console.log(`%c secondary color set to ${markedCellColor}`, `background: ${markedCellColor}; color: ${getTextColor(markedCellColor)}`)
             
             if(!boardArray[i]) {
                 continue
@@ -199,9 +208,13 @@
                 {#each row.cells as cell, j}
                     <BoardCell 
                         cellId={cell.cell_id} 
-                        active={cell.active} 
+                        active={cell.active}
                         crossed={cell.crossed} 
-                        toBeCrossed= {cell.to_be_crossed}/>
+                        toBeCrossed= {cell.to_be_crossed}
+                        activeCellColor={activeCellColor}
+                        markedCellColor={markedCellColor}
+                        textColor={cell.color}
+                    />
                 {/each}
             </div>
         {/each}
@@ -219,6 +232,7 @@
     .control .control__timer {
         font-size: 1rem;
         margin-left: 200px;
+        min-width: 200px;
     }
 
     .board__rows {

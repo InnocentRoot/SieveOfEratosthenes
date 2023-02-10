@@ -37,7 +37,8 @@
                 cell_id: currentCellNumber,
                 crossed: false,
                 to_be_crossed: false,
-                active: false
+                active: false,
+                color: ''
             })
 
             currentCellNumber++
