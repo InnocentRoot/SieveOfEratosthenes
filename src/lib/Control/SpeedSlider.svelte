@@ -1,8 +1,9 @@
 <script>
+    import { Percent } from "svelte-bootstrap-icons";
     import { speed } from "../../stores/algorithm"
 
     let currentRangeValue = 1500
-    let speedPercent = 
+    $: percentage = Math.ceil(currentRangeValue/2005 * 100)
 
     speed.set(2005-1500)
 
@@ -16,7 +17,7 @@
 </script>
 
 <div class="slider flex flex-center">
-    <label for="speedSlider">Vitesse</label>
+    <label for="speedSlider">Speed</label>
     <input 
         type="range"
         min="1"
@@ -27,5 +28,15 @@
         on:change={(e) => speedChange(e)}
         bind:value={currentRangeValue}
     />
-        {currentRangeValue}({$speed/1000} seconds) ({Math.ceil(currentRangeValue/2005 * 100)}%)
+    <span>{percentage}%</span>
 </div>
+
+<style>
+    .slider {
+        margin-left: 10px;
+    }
+
+    .slider span {
+        margin-left: 20px;
+    }
+</style>

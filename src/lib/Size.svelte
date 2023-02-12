@@ -50,8 +50,8 @@
     }
 
     .sizes.disabled, .sizes.disabled * {
-        cursor: not-allowed;
         pointer-events:none;
+        opacity: 0.8;
     }
 
     .sizes .sizes__size label {

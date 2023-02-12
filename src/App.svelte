@@ -90,10 +90,7 @@
 {#if algorithmIsRunning}
   <div class="currentOperation">
     <div class="currentOperation__label">
-      <XCircleFill color={"#dc3545"} />
-      <div class="text">
-        {currentOp}
-      </div>
+      {currentOp}
     </div>
     <div class="currentOperation__description">{currentOpDescription}</div>
   </div>
@@ -208,10 +205,6 @@
     align-items: center;
     margin-bottom: 5px;
     font-weight: bold;
-  }
-
-  .currentOperation .currentOperation__label .text {
-    margin-left: 5px;
   }
 
   .currentOperation .currentOperation__description {

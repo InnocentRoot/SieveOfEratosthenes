@@ -3,7 +3,7 @@ input[type="range"] {
     appearance: none;
     background: transparent;
     cursor: pointer;
-    width: 200px;
+    width: 120px;
     margin-left: 14px;
   }
   
