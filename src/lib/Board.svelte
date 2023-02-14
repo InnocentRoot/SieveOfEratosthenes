@@ -197,7 +197,7 @@
         removeActiveCell();
         isRunning.set(false);
         stopTimer();
-        currentOperationDescription.set('');
+        currentOperationDescription.set("");
     }
 
     function handleEratosthenesReset() {
@@ -229,7 +229,6 @@
                 on:eratosthenesStart={handleEratosthenesStart}
                 on:eratosthenesReset={handleEratosthenesReset}
             />
-            <!-- <SpeedSlider /> -->
         </div>
         <div class="sliders flex">
             <SpeedSlider />

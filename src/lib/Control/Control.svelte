@@ -1,8 +1,8 @@
 <script>
     import ControlButton from "./ControlButton.svelte";
-    import { Play, ArrowClockwise } from "svelte-bootstrap-icons";
     import { createEventDispatcher } from "svelte";
     import { isRunning } from "../../stores/state";
+    import { Play, ArrowClockwise } from "svelte-bootstrap-icons";
 
     const dispatch = createEventDispatcher();
 

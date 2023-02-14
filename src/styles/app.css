@@ -2,13 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron&display=swap');
 @import url("range.css");
 
-*, ::before, ::after {
+*,
+::before,
+::after {
     box-sizing: border-box;
 }
+
 :root {
     --color: #242424;
     --background: #f1f1f1;
-    --box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.1);
+    --box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.1);
     --border-radius: 5px;
     --btn-background: #FFFFFF;
     --btn-border-radius: 5px;
@@ -24,16 +27,14 @@
 body {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
-    place-items: center;
     margin: 10px 100px;
-    /* background: var(--background); */
     min-height: 100vh;
-    background: radial-gradient(61.04% 89.69% at 100% 100%,rgba(200,250,255,.08) 0%,rgba(28,210,229,.08) 40.63%,rgba(28,210,229,0) 100%),radial-gradient(43.78% 64.34% at 60.31% 100%,rgba(23,74,228,.08) 0%,rgba(23,74,228,0) 100%),linear-gradient(180deg,rgba(23,74,228,0) 29.44%,rgba(23,74,228,.06) 100%),linear-gradient(90deg,#f3f3f7 0%,#fffbec 100%);
+    background: radial-gradient(61.04% 89.69% at 100% 100%, rgba(200, 250, 255, .08) 0%, rgba(28, 210, 229, .08) 40.63%, rgba(28, 210, 229, 0) 100%), radial-gradient(43.78% 64.34% at 60.31% 100%, rgba(23, 74, 228, .08) 0%, rgba(23, 74, 228, 0) 100%), linear-gradient(180deg, rgba(23, 74, 228, 0) 29.44%, rgba(23, 74, 228, .06) 100%), linear-gradient(90deg, #f3f3f7 0%, #fffbec 100%);
 }
 
 h1 {
-  font-size: 42px;
-  line-height: 1.1;
+    font-size: 42px;
+    line-height: 1.1;
 }
 
 .flex {
@@ -46,7 +47,7 @@ h1 {
 }
 
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 .btn {
@@ -72,19 +73,21 @@ h1 {
     margin: .25rem .125rem;
     font-size: 1rem;
     border-radius: .25rem;
-    box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.1);
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.1);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .btn.blue {
     background-color: var(--blue);
 }
+
 .btn.btn-red {
     color: var(--white);
     background-color: var(--red);
 }
 
-.btn.disabled, .btn:disabled {
+.btn.disabled,
+.btn:disabled {
     pointer-events: none;
     opacity: var(--disabled-opacity);
 }
@@ -93,5 +96,8 @@ h1 {
     box-shadow: 0 0 0 .25rem var(--btn-focus-color);
 }
 
-
-/*********** Baseline, reset styles ***********/
+@media only screen and (max-width: 528px) {
+    body {
+        margin: 10px 30px;
+    }
+}

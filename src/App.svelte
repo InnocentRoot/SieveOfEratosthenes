@@ -4,13 +4,9 @@
     currentOperationDescription,
   } from "./stores/algorithm";
   import { currentRowSize, currentColSize } from "./stores/BoardSize";
-  import { createEventDispatcher } from "svelte/internal";
   import { isRunning } from "./stores/state";
-  import { XCircleFill } from "svelte-bootstrap-icons";
   import Board from "./lib/Board.svelte";
   import Size from "./lib/Size.svelte";
-
-  const dispatch = createEventDispatcher();
 
   let rowSize;
   let colSize;
