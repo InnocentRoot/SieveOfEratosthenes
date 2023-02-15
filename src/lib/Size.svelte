@@ -1,46 +1,71 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-    import { sizes } from '../helpers/sizes'
-    import { currentRowSize, currentColSize } from '../stores/BoardSize'
+    import {
+        currentRowSize,
+        currentColSize,
+        currentSelectedSize,
+    } from "../stores/BoardSize";
+    import { CheckCircleFill } from "svelte-bootstrap-icons";
+    import { createEventDispatcher } from "svelte";
+    import { isRunning } from "../stores/state";
+    import { sizes } from "../helpers/sizes";
 
     const dispatch = createEventDispatcher();
 
-    let selectedSize
+    let selectedSize = 1;
+    let algorithmIsRunning;
+
+    isRunning.subscribe((state) => (algorithmIsRunning = state));
+    currentSelectedSize.subscribe((id) => (selectedSize = id));
 
     function handleSizeChange() {
-        let newSize = sizes.find(size => size.id == selectedSize)
+        let newSize = sizes.find((size) => size.id == selectedSize);
 
-        currentRowSize.set(newSize.row)
-        currentColSize.set(newSize.col)
+        currentRowSize.set(newSize.row);
+        currentColSize.set(newSize.col);
+        currentSelectedSize.set(newSize.id);
     }
 </script>
 
-<div class="sizes">
+<div class="sizes" class:disabled={algorithmIsRunning}>
     {#each sizes as size}
-        <div class="sizes__size">
+        <div class="sizes__size" class:active={selectedSize == size.id}>
             <label class="btn btn-radio">
-                <input type="radio" name="size" value="{size.id}" bind:group={selectedSize} on:change={handleSizeChange} />
-                {size.row} x {size.col}
-                
-                {#if selectedSize == size.id }
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-3.2 -3.2 38.40 38.40" xml:space="preserve" fill="#000000" transform="rotate(0)">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.064"/>
-                        <g id="SVGRepo_iconCarrier"> <g> <g id="check_x5F_alt"> <path style="fill:#1a5fb4;" d="M16,0C7.164,0,0,7.164,0,16s7.164,16,16,16s16-7.164,16-16S24.836,0,16,0z M13.52,23.383 L6.158,16.02l2.828-2.828l4.533,4.535l9.617-9.617l2.828,2.828L13.52,23.383z"/> </g> </g> </g>
-                    </svg>
+                <input
+                    type="radio"
+                    name="size"
+                    value={size.id}
+                    bind:group={selectedSize}
+                    on:change={handleSizeChange}
+                />
+                <span class="size__text">{size.row} x {size.col}</span>
+
+                {#if selectedSize == size.id}
+                    <span class="size__svg">
+                        <CheckCircleFill
+                            height={20}
+                            width={20}
+                            color={"#0d6efd"}
+                        />
+                    </span>
                 {/if}
             </label>
         </div>
     {/each}
 </div>
 
-
 <style>
     .sizes {
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin-bottom: 30px;
+        margin: 10px 0 30px;
+    }
+
+    .sizes.disabled,
+    .sizes.disabled * {
+        pointer-events: none;
+        opacity: 0.8;
     }
 
     .sizes .sizes__size label {
@@ -51,8 +76,30 @@
 
     .sizes .sizes__size input {
         position: absolute;
-        clip: rect(0,0,0,0);
+        clip: rect(0, 0, 0, 0);
         pointer-events: none;
     }
-</style>
 
+    .sizes__size .size__text {
+        margin-right: 5px;
+    }
+
+    .sizes__size .size__svg {
+        display: inherit;
+        animation-duration: 0.1s;
+        animation-name: animate-slide-left;
+        animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+        transition: width 2s, height 4s;
+    }
+
+    @keyframes animate-slide-left {
+        0% {
+            opacity: 0;
+            transform: translate(3px, 0);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+    }
+</style>
